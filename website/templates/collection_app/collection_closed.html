@@ -1,0 +1,2 @@
+{% extends "collection_app/base.html" %}{% block title %}Collection closed{% endblock %}
+{% block content %}<div class="card"><span class="eyebrow">{{ collection.department }}</span><h1>{{ collection.title }}</h1>{% if rate_limited %}<p>Too many submissions came from this network in a short period. Please wait before trying again, or contact your teacher for help.</p>{% else %}<p>This student collection is closed and is no longer accepting submissions. Contact your teacher if you need help.</p>{% endif %}</div>{% endblock %}

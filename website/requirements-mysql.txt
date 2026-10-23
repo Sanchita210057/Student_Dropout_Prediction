@@ -1,0 +1,3 @@
+# Optional PythonAnywhere/MySQL database driver. Install with:
+#   python -m pip install -r requirements.txt -r website/requirements-mysql.txt
+mysqlclient>=2.2,<3

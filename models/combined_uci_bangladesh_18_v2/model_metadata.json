@@ -1,0 +1,468 @@
+{
+  "project": "Combined UCI + Bangladesh 18-input stacked ensemble experiment",
+  "training_counts": {
+    "uci_resolved_records": 3630,
+    "bangladesh_records": 251,
+    "bangladesh_dropout_labels": 52,
+    "bangladesh_non_dropout_labels": 199
+  },
+  "uci_audit": {
+    "source_rows": 4424,
+    "resolved_rows_used": 3630,
+    "excluded_enrolled_rows": 794,
+    "target_counts": {
+      "Graduate": 2209,
+      "Dropout": 1421
+    },
+    "mapping": {
+      "Graduate": 0,
+      "Dropout": 1
+    }
+  },
+  "bangladesh_audit": {
+    "records": 251,
+    "predictor_count": 18,
+    "target_column_excluded_from_features": true,
+    "timestamp_column_excluded_from_features": true,
+    "source_zero_semester_gpa_count": 33,
+    "semester_gpa_marked_unavailable_count": 19,
+    "semester_gpa_marked_unavailable_status_counts": {
+      "Dropout (Discontinued Studies)": 17,
+      "Running (Currently Studying)": 2
+    },
+    "rows_removed": 0,
+    "course_counts_changed": false,
+    "status_counts": {
+      "Running (Currently Studying)": 124,
+      "Passed (Graduated)": 75,
+      "Dropout (Discontinued Studies)": 52
+    },
+    "target_counts": {
+      "0": 199,
+      "1": 52
+    }
+  },
+  "uci_original_15_feature_compatibility": [
+    {
+      "UCI predictor": "Previous qualification (grade)",
+      "Bangladesh field": "HSC / Equivalent GPA",
+      "decision": "Use",
+      "handling": "Linear numeric range alignment from UCI 0–190 to Bangladesh 0–5; no academic-system equivalence claimed."
+    },
+    {
+      "UCI predictor": "Age at enrollment",
+      "Bangladesh field": "Age at enrollment",
+      "decision": "Use",
+      "handling": "Direct numeric match."
+    },
+    {
+      "UCI predictor": "Mother's occupation",
+      "Bangladesh field": "Mother's occupation",
+      "decision": "Exclude",
+      "handling": "Portuguese occupation codes do not represent the Bangladesh survey categories."
+    },
+    {
+      "UCI predictor": "Father's occupation",
+      "Bangladesh field": "Father's occupation",
+      "decision": "Exclude",
+      "handling": "Portuguese occupation codes do not represent the Bangladesh survey categories."
+    },
+    {
+      "UCI predictor": "Mother's qualification",
+      "Bangladesh field": "Mother's highest education",
+      "decision": "Exclude",
+      "handling": "Detailed UCI education codes have no verified one-to-one Bangladesh mapping."
+    },
+    {
+      "UCI predictor": "Father's qualification",
+      "Bangladesh field": "Father's highest education",
+      "decision": "Exclude",
+      "handling": "Detailed UCI education codes have no verified one-to-one Bangladesh mapping."
+    },
+    {
+      "UCI predictor": "Gender",
+      "Bangladesh field": "Gender",
+      "decision": "Use",
+      "handling": "Map only documented UCI Female/Male values to matching labels; nonmatching local categories remain unseen, never coerced."
+    },
+    {
+      "UCI predictor": "Marital status",
+      "Bangladesh field": "Marital status",
+      "decision": "Exclude",
+      "handling": "Codes include distinctions such as de-facto union/legal separation that do not map exactly to local options."
+    },
+    {
+      "UCI predictor": "Scholarship holder",
+      "Bangladesh field": "Scholarship holder",
+      "decision": "Use",
+      "handling": "Map UCI binary 0/1 to No/Yes."
+    },
+    {
+      "UCI predictor": "Debtor",
+      "Bangladesh field": "Have any debt",
+      "decision": "Use",
+      "handling": "Map UCI binary 0/1 to No/Yes."
+    },
+    {
+      "UCI predictor": "Tuition fees up to date",
+      "Bangladesh field": "Tuition fees up to date",
+      "decision": "Use",
+      "handling": "Map UCI binary 0/1 to No/Yes."
+    },
+    {
+      "UCI predictor": "Curricular units 1st sem (enrolled)",
+      "Bangladesh field": "Courses enrolled",
+      "decision": "Use",
+      "handling": "Direct numeric count; domain ranges may differ."
+    },
+    {
+      "UCI predictor": "Curricular units 1st sem (evaluations)",
+      "Bangladesh field": "Evaluations completed",
+      "decision": "Use",
+      "handling": "Direct numeric count; domain ranges may differ."
+    },
+    {
+      "UCI predictor": "Curricular units 1st sem (grade)",
+      "Bangladesh field": "Semester GPA",
+      "decision": "Use",
+      "handling": "Linear range alignment from observed UCI 0–18.875 to Bangladesh model 0–5; not grading-system equivalence."
+    },
+    {
+      "UCI predictor": "Curricular units 1st sem (approved)",
+      "Bangladesh field": "Courses passed",
+      "decision": "Use",
+      "handling": "Direct numeric count."
+    }
+  ],
+  "uci_foundation_features": [
+    "hsc_equivalent_gpa",
+    "age_at_enrollment",
+    "courses_enrolled",
+    "evaluations_completed",
+    "courses_passed",
+    "semester_gpa_native",
+    "gender_bangladesh",
+    "scholarship_holder",
+    "debtor",
+    "tuition_fees_up_to_date"
+  ],
+  "bangladesh_features": [
+    "hsc_equivalent_gpa",
+    "age_at_enrollment",
+    "mother_occupation_bangladesh",
+    "father_occupation_bangladesh",
+    "mother_education_bangladesh",
+    "father_education_bangladesh",
+    "gender_bangladesh",
+    "marital_status_bangladesh",
+    "scholarship_holder",
+    "debtor",
+    "tuition_fees_up_to_date",
+    "courses_enrolled",
+    "evaluations_completed",
+    "courses_passed",
+    "semester_gpa_native",
+    "last_semester_attendance_percent",
+    "family_financial_condition",
+    "student_employment"
+  ],
+  "target_mapping": {
+    "Dropout (Discontinued Studies)": 1,
+    "Running (Currently Studying)": 0,
+    "Passed (Graduated)": 0
+  },
+  "excluded_from_predictors": [
+    "Timestamp",
+    "current_academic_status"
+  ],
+  "model_parameters": {
+    "uci_six_feature": {
+      "classifier__C": 10.0
+    },
+    "uci_ten_feature": {
+      "classifier__C": 10.0
+    },
+    "bangladesh_local": {
+      "classifier__C": 1.0
+    },
+    "stacker": {
+      "algorithm": "Logistic Regression",
+      "C": 1.0,
+      "class_weight": null
+    }
+  },
+  "stacker_fit_procedure": "Bangladesh base probabilities supplied to fusion fit are stratified OOF predictions from pipelines that did not train on their scored row. UCI foundation probabilities use a separate UCI-trained model and do not use Bangladesh labels.",
+  "stacker_coefficients": {
+    "bangladesh_signal": 3.612065085828875,
+    "uci_academic_signal": 1.6659199199614356,
+    "intercept": -3.2976359058025326
+  },
+  "threshold": 0.3040698561883773,
+  "threshold_selection": "Weighted-blend threshold selected from Bangladesh training-only OOF blend scores, max F1 subject to at most 50% flagged.",
+  "stacking_threshold": 0.33814700287090954,
+  "selected_active_architecture": "Fixed 5%/95% weighted blend using the expanded ten-feature UCI foundation; selected over stacking by nested-CV PR-AUC and Brier score.",
+  "nested_cv_comparison": {
+    "Bangladesh-only 18-input": {
+      "metrics": {
+        "accuracy": 0.9721115537848606,
+        "balanced_accuracy": 0.9611035948975648,
+        "precision": 0.9245283018867925,
+        "recall": 0.9423076923076923,
+        "f1": 0.9333333333333333,
+        "roc_auc": 0.9826053343641283,
+        "pr_auc_average_precision": 0.9333326934755449,
+        "brier_score": 0.03237731274410124,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 195,
+          "fp": 4,
+          "fn": 3,
+          "tp": 49
+        },
+        "flagged_count": 53,
+        "flagged_rate": 0.21115537848605578
+      },
+      "fold_thresholds": [
+        0.4401188408992129,
+        0.4575705494874273,
+        0.32292739308653046,
+        0.5038691319859712,
+        0.4715628484563357
+      ]
+    },
+    "UCI academic foundation (6 numeric)": {
+      "metrics": {
+        "accuracy": 0.9043824701195219,
+        "balanced_accuracy": 0.8473618090452262,
+        "precision": 0.78,
+        "recall": 0.75,
+        "f1": 0.7647058823529411,
+        "roc_auc": 0.9149594124468496,
+        "pr_auc_average_precision": 0.749698227941119,
+        "brier_score": 0.0996935168207878,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 188,
+          "fp": 11,
+          "fn": 13,
+          "tp": 39
+        },
+        "flagged_count": 50,
+        "flagged_rate": 0.199203187250996
+      },
+      "fold_thresholds": [
+        0.1522257317846875,
+        0.15885679306757827,
+        0.1495971307984131,
+        0.15900971875217287,
+        0.1452061990362073
+      ]
+    },
+    "UCI academic foundation (10 aligned)": {
+      "metrics": {
+        "accuracy": 0.9083665338645418,
+        "balanced_accuracy": 0.8285659064553537,
+        "precision": 0.8372093023255814,
+        "recall": 0.6923076923076923,
+        "f1": 0.7578947368421053,
+        "roc_auc": 0.9391186702744492,
+        "pr_auc_average_precision": 0.8095145491484819,
+        "brier_score": 0.07287632241801802,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 192,
+          "fp": 7,
+          "fn": 16,
+          "tp": 36
+        },
+        "flagged_count": 43,
+        "flagged_rate": 0.17131474103585656
+      },
+      "fold_thresholds": [
+        0.4193202062503667,
+        0.41133423726554597,
+        0.4741713933474409,
+        0.3941947989283773,
+        0.4356047492540368
+      ]
+    },
+    "Archived 5%/95% weighted blend (6-feature UCI)": {
+      "metrics": {
+        "accuracy": 0.9721115537848606,
+        "balanced_accuracy": 0.9611035948975648,
+        "precision": 0.9245283018867925,
+        "recall": 0.9423076923076923,
+        "f1": 0.9333333333333333,
+        "roc_auc": 0.9854078082721298,
+        "pr_auc_average_precision": 0.9105857385342706,
+        "brier_score": 0.03245393212740813,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 195,
+          "fp": 4,
+          "fn": 3,
+          "tp": 49
+        },
+        "flagged_count": 53,
+        "flagged_rate": 0.21115537848605578
+      },
+      "fold_thresholds": [
+        0.4419309635944489,
+        0.4507490776773049,
+        0.3255942737700829,
+        0.5058823052119317,
+        0.4596118184998895
+      ],
+      "fold_weights": [
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "Fixed 5%/95% blend (10-feature UCI)": {
+      "metrics": {
+        "accuracy": 0.9641434262948207,
+        "balanced_accuracy": 0.956078469269424,
+        "precision": 0.8909090909090909,
+        "recall": 0.9423076923076923,
+        "f1": 0.9158878504672897,
+        "roc_auc": 0.9862775415539236,
+        "pr_auc_average_precision": 0.9348528410030499,
+        "brier_score": 0.0323535049486493,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 193,
+          "fp": 6,
+          "fn": 3,
+          "tp": 49
+        },
+        "flagged_count": 55,
+        "flagged_rate": 0.21912350597609562
+      },
+      "fold_thresholds": [
+        0.2767626824890134,
+        0.43363732346998507,
+        0.33764432122932336,
+        0.5527194710589318,
+        0.34553570428853875
+      ],
+      "fold_weights": [
+        0.05,
+        0.05,
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "OOF-selected weighted blend (10-feature UCI)": {
+      "metrics": {
+        "accuracy": 0.9681274900398407,
+        "balanced_accuracy": 0.9585910320834944,
+        "precision": 0.9074074074074074,
+        "recall": 0.9423076923076923,
+        "f1": 0.9245283018867925,
+        "roc_auc": 0.9855044453034403,
+        "pr_auc_average_precision": 0.9334860027472811,
+        "brier_score": 0.032712037353995846,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 194,
+          "fp": 5,
+          "fn": 3,
+          "tp": 49
+        },
+        "flagged_count": 54,
+        "flagged_rate": 0.2151394422310757
+      },
+      "fold_thresholds": [
+        0.28496780712617037,
+        0.43363732346998507,
+        0.33764432122932336,
+        0.4384986681982729,
+        0.3619140253317776
+      ],
+      "fold_weights": [
+        0.1,
+        0.05,
+        0.05,
+        0.1,
+        0.1
+      ]
+    },
+    "OOF Logistic Regression stacking (10-feature UCI)": {
+      "metrics": {
+        "accuracy": 0.952191235059761,
+        "balanced_accuracy": 0.948540780827213,
+        "precision": 0.8448275862068966,
+        "recall": 0.9423076923076923,
+        "f1": 0.8909090909090909,
+        "roc_auc": 0.9865674526478547,
+        "pr_auc_average_precision": 0.9190803300960567,
+        "brier_score": 0.03678910538971365,
+        "constant_training_prevalence_brier": 0.16429536360880578,
+        "confusion_matrix": {
+          "tn": 190,
+          "fp": 9,
+          "fn": 3,
+          "tp": 49
+        },
+        "flagged_count": 58,
+        "flagged_rate": 0.23107569721115537
+      },
+      "fold_thresholds": [
+        0.28845447741383856,
+        0.3139264712758312,
+        0.33607324870119276,
+        0.36975477094526366,
+        0.22860432526719007
+      ],
+      "fold_meta_coefficients_bangladesh_uci": [
+        [
+          3.626756860906636,
+          1.620007368964233
+        ],
+        [
+          3.761565614582971,
+          1.5196071120711425
+        ],
+        [
+          4.089834486981101,
+          1.1576731070470008
+        ],
+        [
+          3.63927810931294,
+          1.756794605632647
+        ],
+        [
+          3.7649092318810267,
+          1.4597189881751924
+        ]
+      ]
+    }
+  },
+  "previous_5_95_baseline_cv": {
+    "accuracy": 0.9721115537848606,
+    "balanced_accuracy": 0.9611035948975648,
+    "precision": 0.9245283018867925,
+    "recall": 0.9423076923076923,
+    "f1": 0.9333333333333333,
+    "roc_auc": 0.97816003092385,
+    "pr_auc_average_precision": 0.8846560052804775,
+    "brier_score": 0.045250051458347366,
+    "confusion_matrix": {
+      "tn": 195,
+      "fp": 4,
+      "fn": 3,
+      "tp": 49
+    },
+    "flagged_count": 53,
+    "flagged_rate": 0.21115537848605578,
+    "constant_training_prevalence_brier": 0.16429536360880578
+  },
+  "warning": "UCI predicts resolved graduate/dropout, Bangladesh labels reported current status. Neither model is validated for future dropout prediction.",
+  "model_version": "combined-uci-bangladesh-18-ensemble-v2",
+  "active_model": "weighted_ensemble_dropout_status_18.joblib",
+  "stacking_backup": "Inactive comparison artifact archived outside the project; comparison results remain in the evaluation report."
+}

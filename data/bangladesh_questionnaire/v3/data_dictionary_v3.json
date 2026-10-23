@@ -1,0 +1,65 @@
+{
+  "schema_version": "3.0.0",
+  "project": "Student Dropout Early Warning System - Bangladesh survey preparation",
+  "question_count": 19,
+  "predictor_count": 18,
+  "purpose": "Collect 18 Bangladesh-specific predictor fields and one required current-status target. This does not make current status a future dropout outcome.",
+  "question_order": [
+    "hsc_equivalent_gpa", "age_at_enrollment", "mother_occupation_bangladesh", "father_occupation_bangladesh",
+    "mother_education_bangladesh", "father_education_bangladesh", "gender_bangladesh", "marital_status_bangladesh",
+    "scholarship_holder", "debtor", "tuition_fees_up_to_date", "courses_enrolled", "evaluations_completed",
+    "courses_passed", "semester_gpa_native", "last_semester_attendance_percent", "family_financial_condition",
+    "student_employment", "current_academic_status"
+  ],
+  "predictor_fields": [
+    "hsc_equivalent_gpa", "age_at_enrollment", "mother_occupation_bangladesh", "father_occupation_bangladesh",
+    "mother_education_bangladesh", "father_education_bangladesh", "gender_bangladesh", "marital_status_bangladesh",
+    "scholarship_holder", "debtor", "tuition_fees_up_to_date", "courses_enrolled", "evaluations_completed",
+    "courses_passed", "semester_gpa_native", "last_semester_attendance_percent", "family_financial_condition",
+    "student_employment"
+  ],
+  "target": {
+    "field": "current_academic_status",
+    "question": "Current Academic Status",
+    "required": true,
+    "predictor": false,
+    "type": "categorical",
+    "choices": ["Running (Currently Studying)", "Passed (Graduated)", "Dropout (Discontinued Studies)"],
+    "binary_mapping": {"Dropout (Discontinued Studies)": 1, "Passed (Graduated)": 0, "Running (Currently Studying)": 0},
+    "limitation": "Running is the status observed at submission, not proof that the student will never drop out. Coding it as 0 follows the requested convention but does not establish a future outcome."
+  },
+  "export_columns": [
+    "hsc_equivalent_gpa", "age_at_enrollment", "mother_occupation_bangladesh", "father_occupation_bangladesh",
+    "mother_education_bangladesh", "father_education_bangladesh", "gender_bangladesh", "marital_status_bangladesh",
+    "scholarship_holder", "debtor", "tuition_fees_up_to_date", "courses_enrolled", "evaluations_completed",
+    "courses_passed", "semester_gpa_native", "last_semester_attendance_percent", "family_financial_condition",
+    "student_employment", "current_academic_status"
+  ],
+  "collection_boundary": "Exactly 19 questions: 18 predictors and Current Academic Status. No consent, student ID, university name, date, email, or other research metadata questions. Handle required consent and governance separately.",
+  "missing_data_policy": "Predictor questions are optional. Blank and Unknown / Prefer not to say or Undisclosed predictor responses remain missing. Current Academic Status is required. No imputation is performed.",
+  "synthetic_data_policy": "No synthetic response dataset is distributed with the final project. Do not fabricate responses for training or evaluation.",
+  "income_bracket_note": "Monthly household-income brackets are provisional survey categories, not official poverty or socioeconomic definitions.",
+  "occupation_schema_note": "Bangladesh parent occupation categories are local survey labels and are not mapped to UCI occupation codes. The response data and current questionnaire use Not Alive and Housewife exactly.",
+  "gpa_note": "GPA values remain as reported. No scale conversion is performed.",
+  "predictors": [
+    {"name":"hsc_equivalent_gpa","question":"HSC / Equivalent GPA","type":"number","range":[0,5]},
+    {"name":"age_at_enrollment","question":"Age at enrollment","type":"integer","range":[15,100]},
+    {"name":"mother_occupation_bangladesh","question":"Mother's occupation","type":"categorical","choices":["Not Alive","Retired","Housewife","Business owner","Government employee","Private-sector employee","Self-employed / Daily-wage worker","Other","Unknown / Prefer not to say"]},
+    {"name":"father_occupation_bangladesh","question":"Father's occupation","type":"categorical","choices":["Not Alive","Retired","Housewife","Business owner","Government employee","Private-sector employee","Self-employed / Daily-wage worker","Other","Unknown / Prefer not to say"]},
+    {"name":"mother_education_bangladesh","question":"Mother's highest education","type":"categorical","choices":["No formal education","Primary","Lower secondary","Secondary / SSC","Higher secondary / HSC","Bachelor's degree","Postgraduate degree","Other","Unknown / Prefer not to say"]},
+    {"name":"father_education_bangladesh","question":"Father's highest education","type":"categorical","choices":["No formal education","Primary","Lower secondary","Secondary / SSC","Higher secondary / HSC","Bachelor's degree","Postgraduate degree","Other","Unknown / Prefer not to say"]},
+    {"name":"gender_bangladesh","question":"Gender","type":"categorical","choices":["Female","Male","Another identity","Unknown / Prefer not to say"]},
+    {"name":"marital_status_bangladesh","question":"Marital status","type":"categorical","choices":["Single / Never married","Married","Separated","Divorced","Widowed","Other","Unknown / Prefer not to say"]},
+    {"name":"scholarship_holder","question":"Scholarship holder","type":"categorical","choices":["Yes","No","Unknown / Prefer not to say"]},
+    {"name":"debtor","question":"Have any debt","type":"categorical","choices":["Yes","No","Unknown / Prefer not to say"]},
+    {"name":"tuition_fees_up_to_date","question":"Tuition fees up to date","type":"categorical","choices":["Yes","No","Unknown / Prefer not to say"]},
+    {"name":"courses_enrolled","question":"Courses enrolled in the relevant semester","type":"integer","range":[0,500]},
+    {"name":"evaluations_completed","question":"Evaluations completed in the relevant semester","type":"integer","range":[0,1000]},
+    {"name":"courses_passed","question":"Courses passed in the relevant semester","type":"integer","range":[0,500]},
+    {"name":"semester_gpa_native","question":"Semester GPA (native university scale)","type":"number","range":[0,5]},
+    {"name":"last_semester_attendance_percent","question":"Last-semester attendance percentage","type":"number-or-missing","range":[0,100],"unit":"percent"},
+    {"name":"family_financial_condition","question":"Family financial condition (monthly household income bracket)","type":"categorical","choices":["Poor (below ৳25,000)","Below Average (৳25,000–39,999)","Average (৳40,000–69,999)","Higher Middle Class (৳70,000–149,999)","Rich (৳150,000+)","Undisclosed"],"description":"Provisional brackets, not official poverty definitions."},
+    {"name":"student_employment","question":"Student employment","type":"categorical","choices":["Unemployed","Part-time","Full-time","Private Tuition","Freelancing/Outsourcing","Own Business","Undisclosed"]}
+  ],
+  "model_feature_policy": "current_academic_status is a target only. Feature-set preparation selects the 18 predictor_fields and excludes the target. Do not use this label as an input feature."
+}

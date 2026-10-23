@@ -1,0 +1,15 @@
+{% extends "collection_app/base.html" %}
+{% block title %}Individual Assessment · Student Dropout Early Warning System{% endblock %}
+{% block content %}
+<section class="hero"><span class="eyebrow">INDIVIDUAL ASSESSMENT</span><h1>Assess One Student</h1><p class="muted">Enter student information to generate an estimated risk assessment.</p></section>
+{% if result %}
+<section class="card result-card" aria-label="Assessment result"><span class="eyebrow">FINAL ASSESSMENT</span><h2>{{ reference_id }}</h2><div class="risk-number">{{ result.probability_percent|floatformat:1 }}%</div><p><span class="risk-badge">{{ result.risk_level }}</span> <span class="muted">· threshold {{ result.threshold_percent|floatformat:1 }}%</span></p><div class="progress"><i style="width:{{ result.probability_percent|floatformat:1 }}%"></i></div>
+<h3>Key risk indicators</h3>{% if result.indicators %}<ul>{% for item in result.indicators %}<li>{{ item }}</li>{% endfor %}</ul>{% else %}<p class="muted">No specific risk indicators were identified from the entered information.</p>{% endif %}
+<h3>Possible institute support</h3><ul>{% for item in result.supports %}<li>{{ item }}</li>{% empty %}<li>Continue normal academic monitoring and offer support as needed.</li>{% endfor %}</ul>
+<details><summary>Model details</summary><p class="muted">Academic Model Score: {{ result.uci_percent|floatformat:1 }}% · Local Student Model Score: {{ result.local_percent|floatformat:1 }}%</p></details><div class="actions"><a class="button" href="{% url 'assessment_pdf_download' %}">Download PDF assessment</a><a class="button secondary" href="{% url 'individual_assessment' %}">Assess another student</a></div></section>
+{% endif %}
+<form method="post" class="card">{% csrf_token %}{% if form.non_field_errors %}<div class="error">{{ form.non_field_errors }}</div>{% endif %}
+<section class="form-section"><h2>Student Identification</h2><p class="muted">This reference is used only on the result and report; it is not a model input.</p><div class="field"><label for="{{ form.reference_id.id_for_label }}">{{ form.reference_id.label }}</label>{{ form.reference_id }}{{ form.reference_id.errors }}</div></section>
+{% for title, fields in form_sections %}<section class="form-section"><h2>{{ title }}</h2><div class="two-col">{% for field in fields %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<small class="muted">{{ field.help_text }}</small>{% endif %}{{ field.errors }}</div>{% endfor %}</div></section>{% endfor %}
+<button type="submit">Run Risk Assessment</button></form>
+{% endblock %}

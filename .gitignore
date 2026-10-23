@@ -1,0 +1,60 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+*.tmp
+*.zip
+*.sqlite3
+*.sqlite3-*
+*.db
+.pytest_cache/
+.pytest_tmp/
+.pytest_tmp_*/
+.pytest_final_*/
+.pytest_gpa_*/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Packaging and coverage output
+build/
+dist/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local secrets and environment variables
+.env
+.env.*
+!.env.example
+website/staticfiles/
+.local-backups/
+exports/
+data/student_dropout.csv
+
+# Avoid committing other raw-data drops or form exports by accident.
+/data/**/raw/
+/data/Bangladesh University Research Responses.xlsx
+/data/bangladesh_questionnaire/**/Bangladesh University Research Responses.xlsx
+/data/bangladesh_questionnaire/**/Form Responses*.xlsx
+
+# Generated model artifacts (directory retained with .gitkeep)
+models/*
+!models/.gitkeep
+!models/combined_uci_bangladesh_18_v2/
+!models/combined_uci_bangladesh_18_v2/*.joblib
+!models/combined_uci_bangladesh_18_v2/*.json
